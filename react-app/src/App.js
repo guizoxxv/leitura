@@ -52,7 +52,7 @@ class App extends Component {
                     <td>02/01/2018</td>
                     <td>10</td>
                     <td>
-                      <button style={{ 'margin-right': '5px' }}><Link to="#">Ver</Link></button>
+                      <button style={{ 'margin-right': '5px' }}><Link to="/ver">Ver</Link></button>
                       <button><Link to="/editar">Editar</Link></button>
                     </td>
                   </tr>
@@ -63,7 +63,7 @@ class App extends Component {
                     <td>02/01/2018</td>
                     <td>10</td>
                     <td>
-                      <button style={{ 'margin-right': '5px' }}><Link to="#">Ver</Link></button>
+                      <button style={{ 'margin-right': '5px' }}><Link to="/ver">Ver</Link></button>
                       <button><Link to="/editar">Editar</Link></button>
                     </td>
                   </tr>
@@ -74,7 +74,7 @@ class App extends Component {
                     <td>02/01/2018</td>
                     <td>10</td>
                     <td>
-                      <button style={{ 'margin-right': '5px' }}><Link to="#">Ver</Link></button>
+                      <button style={{ 'margin-right': '5px' }}><Link to="/ver">Ver</Link></button>
                       <button><Link to="/editar">Editar</Link></button>
                     </td>
                   </tr>
@@ -89,6 +89,18 @@ class App extends Component {
               <button><Link to="/">Voltar</Link></button>
             </div>
             <section className="main-content">
+              <div className="h3-wrapper">
+                <h3>React</h3>
+                <div className="ordenar-por">
+                  <label>Ordenar por:</label>
+                  <select>
+                    <option value="">Selecione</option>
+                    <option value="data">Data</option>
+                    <option value="votos">Votos</option>
+                  </select>
+                </div>
+                <button id="nova-postagem-btn">Nova Postagem</button>
+              </div>
               <table className="posts-table">
                 <thead>
                   <tr>
@@ -119,30 +131,73 @@ class App extends Component {
         )} />
         <Route path='/ver' render={() => (
           <main>
+            <div className="voltar-btn-wrapper">
+              <button><Link to="/">Voltar</Link></button>
+            </div>
             <section className="main-content">
-              <h3>Editar Postagem</h3>
-              <div className="post-form">
-                <div className="form-group">
-                  <label>Título:</label>
-                  <input placeholder="Título"/>
+              <div className="post-header">
+                <div>
+                  <h3>React Post</h3>
+                  <span className="small">Por Guizo em 02 de Janeiro de 2018</span>
+                  <Link className="categoria-item" to="#">React</Link>
                 </div>
-                <div className="form-group">
-                  <label>Autor:</label>
-                  <input placeholder="Autor"/>
+                <div className="votes-wrapper">
+                  <span>10 votos</span>
+                  <button>+1</button>
                 </div>
-                <div className="form-group">
-                  <label>Categoria:</label>
-                  <select>
-                    <option value="">Selecione</option>
-                    <option value="react">React</option>
-                    <option value="redux">Redux</option>
-                    <option value="udacity">Udacity</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Corpo:</label>
-                  <textarea></textarea>
-                </div>
+              </div>
+              <hr/>
+              <div className="post-body">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </div>
+              <div>
+                <button style={{'margin-right':'5px'}}>Editar</button>
+                <button>Remover</button>
+              </div>
+              <hr/>
+              <ul className="comentarios-wrapper">
+                <li className="comentario">
+                  <div><b>User #1 em 03 de Janeiro de 2018:</b></div>
+                  <div className="comentario-body">
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </div>
+                  <div className="comentario-footer">
+                    <div>
+                      <button style={{'margin-right':'5px'}}>Editar</button>
+                      <button>Remover</button>
+                    </div>
+                    <div className="votes-wrapper">
+                      <span>5 votos</span>
+                      <button>+1</button>
+                    </div>
+                  </div>
+                  <hr/>
+                </li>
+                <li className="comentario">
+                  <div><b>User #2 em 04 de Janeiro de 2018:</b></div>
+                  <div className="comentario-body">
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                  </div>
+                  <div className="comentario-footer">
+                    <div>
+                      <button style={{'margin-right':'5px'}}>Editar</button>
+                      <button>Remover</button>
+                    </div>
+                    <div className="votes-wrapper">
+                      <span>5 votos</span>
+                      <button>+1</button>
+                    </div>
+                  </div>
+                  <hr/>
+                </li>
+              </ul>
+              <div className="add-comentario">
+                <div style={{'margin-bottom':'10px'}}><b>Comentar</b></div>
+                <input type="text" placeholder="Autor" style={{'margin-bottom':'10px'}}/>
+                <br/>
+                <textarea placeholder="Corpo do comentário"></textarea>
+                <br/>
+                <button>Comentar</button>
               </div>
             </section>
           </main>
@@ -152,7 +207,7 @@ class App extends Component {
             <div className="voltar-btn-wrapper">
               <button><Link to="/">Voltar</Link></button>
             </div>
-            <section className="main-content centered">
+            <section className="main-content">
               <h3 className="post-form-title">Editar Postagem</h3>
               <div className="post-form">
                 <div className="form-group">

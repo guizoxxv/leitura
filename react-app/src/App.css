@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 h1 {
   text-align: center;
 }
@@ -7,6 +10,12 @@ h1:hover {
 a {
   text-decoration: none;
   color: inherit;
+}
+button:hover {
+  cursor: pointer;
+}
+.small {
+  font-size: 12px;
 }
 .form-group:not(.last-child) {
   margin-bottom: 10px;
@@ -19,7 +28,7 @@ a {
   display: inline-block;
   margin: 5px;
 }
-.categorias-list li a {
+.categorias-list li a, .categoria-item {
   background-color: #ccc;
   padding: 5px;
 }
@@ -36,12 +45,16 @@ a {
   padding: 0;
 }
 .voltar-btn-wrapper a {
+  display: inline-block;
   padding: 5px;
 }
 .h3-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.h3-wrapper h3 {
+  margin: 10px 0;
 }
 .ordenar-por label {
   padding-right: 5px;
@@ -70,15 +83,46 @@ a {
 #nova-postagem-btn {
   padding: 5px;
 }
-.post-form {
+.post-form, .add-comentario {
   width: 100%;
   max-width: 600px;
 }
-.post-form label, .post-form input, .post-form select, .post-form textarea {
+.post-form label, .post-form input, .post-form select, .post-form textarea, .add-comentario input, .add-comentario textarea {
   width: 100%;
 }
 .post-form label {
   margin-right: 5px;
   text-align: center;
   font-weight: bold;
+}
+.post-header, .comentario-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.post-header h3 {
+  margin: 0 0 10px 0;
+}
+.categoria-item {
+  margin-left: 10px;
+}
+.votes-wrapper {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+.votes-wrapper span {
+  margin-right: 10px;
+}
+.post-body {
+  margin: 15px 0;
+}
+.comentario-body {
+  margin-top: 5px;
+}
+.comentario-footer {
+  margin-top: 10px;
+}
+.add-comentario button {
+  margin-top: 5px;
 }
