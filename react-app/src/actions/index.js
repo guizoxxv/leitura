@@ -1,0 +1,7 @@
+export const SELECIONAR_CATEGORIA = 'SELECIONAR_CATEGORIA'
+
+export function SELECIONAR_CATEGORIA({}) {
+  return {
+    type: SELECIONAR_CATEGORIA,
+  }
+}

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../index.css';
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import Categorias from './Categorias'
+import PostsTable from './PostsTable'
 
 class App extends Component {
   render() {
@@ -12,75 +14,8 @@ class App extends Component {
         </header>
         <Route exact path='/' render={() => (
           <main>
-            <section className="categorias-wrapper">
-              <h3>Categorias</h3>
-              <ul className="categorias-list">
-                <li><Link to="/react">React</Link></li>
-                <li><Link to="/redux">Redux</Link></li>
-                <li><Link to="/udacity">Udacity</Link></li>
-              </ul>
-            </section>
-            <section className="main-content">
-              <div className="h3-wrapper">
-                <h3>Todas as postagens</h3>
-                <div className="ordenar-por">
-                  <label>Ordenar por:</label>
-                  <select>
-                    <option value="">Selecione</option>
-                    <option value="data">Data</option>
-                    <option value="votos">Votos</option>
-                  </select>
-                </div>
-                <button id="nova-postagem-btn">Nova Postagem</button>
-              </div>
-              <table className="posts-table">
-                <thead>
-                  <tr>
-                    <th>Título</th>
-                    <th>Categoria</th>
-                    <th>Autor</th>
-                    <th>Data</th>
-                    <th>Votos</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>React post</td>
-                    <td>React</td>
-                    <td>Guizo</td>
-                    <td>02/01/2018</td>
-                    <td>10</td>
-                    <td>
-                      <button style={{ 'margin-right': '5px' }}><Link to="/ver">Ver</Link></button>
-                      <button><Link to="/editar">Editar</Link></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Redux post</td>
-                    <td>React</td>
-                    <td>Guizo</td>
-                    <td>02/01/2018</td>
-                    <td>10</td>
-                    <td>
-                      <button style={{ 'margin-right': '5px' }}><Link to="/ver">Ver</Link></button>
-                      <button><Link to="/editar">Editar</Link></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Udacity post</td>
-                    <td>React</td>
-                    <td>Guizo</td>
-                    <td>02/01/2018</td>
-                    <td>10</td>
-                    <td>
-                      <button style={{ 'margin-right': '5px' }}><Link to="/ver">Ver</Link></button>
-                      <button><Link to="/editar">Editar</Link></button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
+            <Categorias/>
+            <PostsTable/>
           </main>
         )} />
         <Route exact path='/react' render={() => (
@@ -191,6 +126,7 @@ class App extends Component {
                   <hr/>
                 </li>
               </ul>
+              <hr/>
               <div className="add-comentario">
                 <div style={{'margin-bottom':'10px'}}><b>Comentar</b></div>
                 <input type="text" placeholder="Autor" style={{'margin-bottom':'10px'}}/>
