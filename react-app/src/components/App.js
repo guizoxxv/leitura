@@ -1,11 +1,17 @@
-import React, { Component } from 'react';
-import '../index.css';
+import React, { Component } from 'react'
+import '../index.css'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import Categorias from './Categorias'
+import CategoriasList from './CategoriasList'
 import PostsTable from './PostsTable'
+import CriarPostagem from './CriarPostagem'
+import EditarPostagem from './EditarPostagem'
 
 class App extends Component {
+  handleCriarPostagem() {
+    
+  }
+
   render() {
     return (
       <div className="App">
@@ -14,7 +20,7 @@ class App extends Component {
         </header>
         <Route exact path='/' render={() => (
           <main>
-            <Categorias/>
+            <CategoriasList/>
             <PostsTable/>
           </main>
         )} />
@@ -34,7 +40,7 @@ class App extends Component {
                     <option value="votos">Votos</option>
                   </select>
                 </div>
-                <button id="nova-postagem-btn">Nova Postagem</button>
+                <button><Link to="/criar">Nova Postagem</Link></button>
               </div>
               <table className="posts-table">
                 <thead>
@@ -55,7 +61,7 @@ class App extends Component {
                     <td>02/01/2018</td>
                     <td>10</td>
                     <td>
-                      <button style={{ 'margin-right': '5px' }}><Link to="#">Ver</Link></button>
+                      <button style={{ 'margin-right': '5px' }}><Link to="/ver">Ver</Link></button>
                       <button><Link to="/editar">Editar</Link></button>
                     </td>
                   </tr>
@@ -63,6 +69,11 @@ class App extends Component {
               </table>
             </section>
           </main>
+        )} />
+        <Route path='/criar' render={() => (
+          <CriarPostagem
+            criarPostagem={this.handleCriarPostagem}
+          />
         )} />
         <Route path='/ver' render={() => (
           <main>
@@ -139,37 +150,7 @@ class App extends Component {
           </main>
         )} />
         <Route path='/editar' render={() => (
-          <main>
-            <div className="voltar-btn-wrapper">
-              <button><Link to="/">Voltar</Link></button>
-            </div>
-            <section className="main-content">
-              <h3 className="post-form-title">Editar Postagem</h3>
-              <div className="post-form">
-                <div className="form-group">
-                  <label>Título:</label>
-                  <input placeholder="Título"/>
-                </div>
-                <div className="form-group">
-                  <label>Autor:</label>
-                  <input placeholder="Autor"/>
-                </div>
-                <div className="form-group">
-                  <label>Categoria:</label>
-                  <select>
-                    <option value="">Selecione</option>
-                    <option value="react">React</option>
-                    <option value="redux">Redux</option>
-                    <option value="udacity">Udacity</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Corpo:</label>
-                  <textarea></textarea>
-                </div>
-              </div>
-            </section>
-          </main>
+          <EditarPostagem/>
         )} />
       </div>
     );

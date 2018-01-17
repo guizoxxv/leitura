@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class PostsTable extends Component {
   render() {
@@ -15,7 +16,7 @@ class PostsTable extends Component {
               <option value="votos">Votos</option>
             </select>
           </div>
-          <button id="nova-postagem-btn">Nova Postagem</button>
+          <button><Link to="/criar">Nova Postagem</Link></button>
         </div>
         <table className="posts-table">
           <thead>
@@ -69,4 +70,10 @@ class PostsTable extends Component {
   }
 }
 
-export default PostsTable
+function mapStateToProps(state) {
+  return {
+    postagens: state.postagens
+  }
+}
+
+export default connect(mapStateToProps, null)(PostsTable);

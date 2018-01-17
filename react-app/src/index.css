@@ -80,9 +80,6 @@ button:hover {
 .posts-table td button a {
   padding: 5px;
 }
-#nova-postagem-btn {
-  padding: 5px;
-}
 .post-form, .add-comentario {
   width: 100%;
   max-width: 600px;
