@@ -1,22 +1,25 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { submitCriarPostagem } from '../actions'
+import { callCriarPostagem } from '../actions'
 import { connect } from 'react-redux'
 
 class CriarPostagem extends Component {
   handleCriarPostagem = (e) => {
+    e.preventDefault()
+    
     const data = {
       id: Date.now(),
       timestamp: Date.now(),
       author: e.target.autor.value,
       body: e.target.corpo.value,
       title: e.target.titulo.value,
-      category: e.target.categoria.value
+      category: e.target.categoria.value,
+      voteScore: 0
     }
 
-    this.props.criarPostagem(data)
+    this.props.callCriarPostagem(data)
 
-    e.preventDefault()
+    window.location = '/'
   }
 
   render() {
@@ -34,6 +37,7 @@ class CriarPostagem extends Component {
                 name="titulo"
                 type="text"
                 placeholder="Título"
+                required
               />
             </div>
             <div className="form-group">
@@ -42,6 +46,7 @@ class CriarPostagem extends Component {
                 name="autor"
                 type="text"
                 placeholder="Autor"
+                required
               />
             </div>
             <div className="form-group">
@@ -69,12 +74,4 @@ class CriarPostagem extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    criarPostagem: (data) => dispatch(submitCriarPostagem(data))
-  }
-}
-
-export default connect(
-  mapDispatchToProps
-)(CriarPostagem)
+export default connect(null, { callCriarPostagem })(CriarPostagem)

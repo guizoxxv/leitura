@@ -1,7 +1,8 @@
 const url = "http://localhost:5005"
 
 const headers = {
-  'Authorization': 'whatever-you-want'
+  'Authorization': 'whatever-you-want',
+  'Content-Type': 'application/json'
 }
 
 export const listCategories = () => fetch(
@@ -26,3 +27,11 @@ export const createPost = (data) => fetch(
     body: JSON.stringify(data)
   }
 ).then(res => res.json()).then(data => data)
+
+export const deletePost = (data) => fetch(
+  `${url}/posts/${data}`,
+  {
+    method: 'delete',
+    headers: headers
+  }
+)

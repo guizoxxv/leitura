@@ -8,15 +8,13 @@ import reducer from './reducers'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
-// TODO: Pq não funciona?
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ || compose
-// const store = createStore(
-//   reducer,
-//   composeEnhancers(applyMiddleware(thunk))
-// )
+// const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
+// const store = createStoreWithMiddleware(reducer)
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const store = createStoreWithMiddleware(reducer);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(reducer, composeEnhancers(
+  applyMiddleware(thunk)
+))
 
 ReactDOM.render(
   <Provider store={store}>

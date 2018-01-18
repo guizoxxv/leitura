@@ -8,10 +8,6 @@ import CriarPostagem from './CriarPostagem'
 import EditarPostagem from './EditarPostagem'
 
 class App extends Component {
-  handleCriarPostagem() {
-    
-  }
-
   render() {
     return (
       <div className="App">
@@ -71,9 +67,7 @@ class App extends Component {
           </main>
         )} />
         <Route path='/criar' render={() => (
-          <CriarPostagem
-            criarPostagem={this.handleCriarPostagem}
-          />
+          <CriarPostagem/>
         )} />
         <Route path='/ver' render={() => (
           <main>
