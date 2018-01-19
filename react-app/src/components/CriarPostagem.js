@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { callCriarPostagem } from '../actions'
+import {  callCarregarCategorias, callCriarPostagem } from '../actions'
 import { connect } from 'react-redux'
+import { capitalize } from '../utils/helpers'
 
 class CriarPostagem extends Component {
+  componentDidMount() {
+    this.props.callCarregarCategorias()
+  }
+
   handleCriarPostagem = (e) => {
     e.preventDefault()
-    
-    const data = {
+
+    let data = {
       id: Date.now(),
       timestamp: Date.now(),
       author: e.target.autor.value,
       body: e.target.corpo.value,
       title: e.target.titulo.value,
-      category: e.target.categoria.value,
-      voteScore: 0
+      category: e.target.categoria.value
     }
 
     this.props.callCriarPostagem(data)
@@ -23,6 +27,8 @@ class CriarPostagem extends Component {
   }
 
   render() {
+    let categorias = this.props.categorias.categorias
+
     return (
       <main>
         <div className="voltar-btn-wrapper">
@@ -53,9 +59,9 @@ class CriarPostagem extends Component {
               <label>Categoria:</label>
               <select name="categoria">
                 <option value="">Selecione</option>
-                <option value="react">React</option>
-                <option value="redux">Redux</option>
-                <option value="udacity">Udacity</option>
+                {categorias !== undefined && categorias.map((categoria) => (
+                  <option key={categoria.name} value={categoria.name}>{capitalize(categoria.name)}</option>
+                ))}
               </select>
             </div>
             <div className="form-group">
@@ -74,4 +80,8 @@ class CriarPostagem extends Component {
   }
 }
 
-export default connect(null, { callCriarPostagem })(CriarPostagem)
+let mapStateToProps = ({ categorias }) => ({
+  categorias
+})
+
+export default connect(mapStateToProps, { callCarregarCategorias, callCriarPostagem })(CriarPostagem)

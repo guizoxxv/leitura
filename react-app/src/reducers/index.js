@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import { LISTAR_CATEGORIAS, LISTAR_POSTAGENS, CRIAR_POSTAGEM, EXCLUIR_POSTAGEM } from '../actions'
+import { CARREGAR_CATEGORIAS, CARREGAR_POSTAGENS, CARREGAR_POSTAGEM, EDITAR_POSTAGEM, EXCLUIR_POSTAGEM } from '../actions'
 
 function categorias(state = {}, action) {
   switch(action.type) {
-    case LISTAR_CATEGORIAS:
+    case CARREGAR_CATEGORIAS:
       return {
         ...state,
         categorias: action.categorias
@@ -14,24 +14,39 @@ function categorias(state = {}, action) {
 }
 
 const initialStatePostagens = {
-  postagens: [],
-  postagem: {}
+  postagens: []
 }
 
 function postagens(state = initialStatePostagens, action) {
   switch(action.type) {
-    case LISTAR_POSTAGENS:
+    case CARREGAR_POSTAGENS:
       return {
         ...state,
         postagens: action.postagens
       }
-    case CRIAR_POSTAGEM:
+    case EXCLUIR_POSTAGEM:
       return {
         ...state,
-        postagens: state.postagens.concat(action.postagem)
+        postagens: state.postagens.filter(post => post.id !== action.id)
+      }
+    default:
+      return state
+  }
+}
+
+const initialStatePostagem = {
+  postagens: [],
+  postagem: {}
+}
+
+function postagem(state = initialStatePostagem, action) {
+  switch(action.type) {
+    case CARREGAR_POSTAGEM:
+      return {
+        ...state,
+        postagem: action.postagem
       }
     case EXCLUIR_POSTAGEM:
-    console.log(state, action.id)
       return {
         ...state,
         postagens: state.postagens.filter(post => post.id !== action.id)
@@ -43,5 +58,6 @@ function postagens(state = initialStatePostagens, action) {
 
 export default combineReducers({
   categorias,
-  postagens
+  postagens,
+  postagem
 })

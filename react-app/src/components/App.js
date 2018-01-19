@@ -14,12 +14,12 @@ class App extends Component {
         <header>
           <h1><Link to="/">Reaccit</Link></h1>
         </header>
-        <Route exact path='/' render={() => (
+        <Route exact path='/' render={(props) => (
           <main>
-            <CategoriasList/>
-            <PostsTable/>
+            <CategoriasList {...props}/>
+            <PostsTable {...props}/>
           </main>
-        )} />
+        )}/>
         <Route exact path='/react' render={() => (
           <main>
             <div className="voltar-btn-wrapper">
@@ -65,10 +65,8 @@ class App extends Component {
               </table>
             </section>
           </main>
-        )} />
-        <Route path='/criar' render={() => (
-          <CriarPostagem/>
-        )} />
+        )}/>
+        <Route path='/criar' component={CriarPostagem}/>
         <Route path='/ver' render={() => (
           <main>
             <div className="voltar-btn-wrapper">
@@ -92,7 +90,7 @@ class App extends Component {
               </div>
               <div>
                 <button style={{'margin-right':'5px'}}>Editar</button>
-                <button>Remover</button>
+                <button>Excluir</button>
               </div>
               <hr/>
               <ul className="comentarios-wrapper">
@@ -104,7 +102,7 @@ class App extends Component {
                   <div className="comentario-footer">
                     <div>
                       <button style={{'margin-right':'5px'}}>Editar</button>
-                      <button>Remover</button>
+                      <button>Excluir</button>
                     </div>
                     <div className="votes-wrapper">
                       <span>5 votos</span>
@@ -121,7 +119,7 @@ class App extends Component {
                   <div className="comentario-footer">
                     <div>
                       <button style={{'margin-right':'5px'}}>Editar</button>
-                      <button>Remover</button>
+                      <button>Excluir</button>
                     </div>
                     <div className="votes-wrapper">
                       <span>5 votos</span>
@@ -142,10 +140,8 @@ class App extends Component {
               </div>
             </section>
           </main>
-        )} />
-        <Route path='/editar' render={() => (
-          <EditarPostagem/>
-        )} />
+        )}/>
+        <Route path='/editar/:id' component={EditarPostagem}/>
       </div>
     );
   }

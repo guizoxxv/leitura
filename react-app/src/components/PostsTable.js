@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { callListarPostagens, callExcluirPostagem } from '../actions'
+import { callCarregarPostagens, callExcluirPostagem } from '../actions'
 import Moment from 'moment'
 
 class PostsTable extends Component {
   componentDidMount() {
-    this.props.callListarPostagens()
+    this.props.callCarregarPostagens()
   }
 
   handleExcluirPostagem = (id) => {
+    window.confirm('Deseja mesmo excluir este registro?')
+
     this.props.callExcluirPostagem(id)
   }
 
   render() {
-    const { postagens } = this.props.postagens
+    let postagens = this.props.postagens.postagens
 
     return (
       <section className="posts-table-wrapper">
@@ -51,7 +53,7 @@ class PostsTable extends Component {
                 <td>{postagem.voteScore}</td>
                 <td>
                   <button style={{ 'marginRight':'5px' }}><Link to="/ver">Ver</Link></button>
-                  <button style={{ 'marginRight':'5px' }}><Link to="/editar">Editar</Link></button>
+                  <button style={{ 'marginRight':'5px' }}><Link to={`/editar/${postagem.id}`}>Editar</Link></button>
                   <button onClick={() => this.handleExcluirPostagem(postagem.id)}>Excluir</button>
                 </td>
               </tr>
@@ -63,9 +65,9 @@ class PostsTable extends Component {
   }
 }
 
-const mapStateToProps = ({ postagens, postagem }) => ({
+let mapStateToProps = ({ postagens, postagem }) => ({
   postagens,
   postagem
 })
 
-export default connect(mapStateToProps, { callListarPostagens, callExcluirPostagem })(PostsTable)
+export default connect(mapStateToProps, { callCarregarPostagens, callExcluirPostagem })(PostsTable)

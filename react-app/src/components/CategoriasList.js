@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { listCategories } from '../utils/api'
+import { getCategories } from '../utils/api'
 import { capitalize } from '../utils/helpers'
-import { callListarCategorias } from '../actions'
+import { callCarregarCategorias } from '../actions'
 import { connect } from 'react-redux'
 
 class CategoriasList extends Component {
   componentDidMount() {
-    this.props.callListarCategorias()
+    this.props.callCarregarCategorias()
   }
 
   render() {
-    const { categorias } = this.props.categorias
+    let categorias = this.props.categorias.categorias
 
     return (
       <section className="categorias-wrapper">
@@ -26,8 +26,8 @@ class CategoriasList extends Component {
   }
 }
 
-const mapStateToProps = ({ categorias }) => ({
+let mapStateToProps = ({ categorias }) => ({
   categorias
 })
 
-export default connect(mapStateToProps, { callListarCategorias })(CategoriasList)
+export default connect(mapStateToProps, { callCarregarCategorias })(CategoriasList)

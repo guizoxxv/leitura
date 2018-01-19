@@ -1,51 +1,68 @@
 import * as API from '../utils/api'
 
-export const LISTAR_CATEGORIAS = 'LISTAR_CATEGORIAS'
-export const LISTAR_POSTAGENS = 'LISTAR_POSTAGENS'
-export const CRIAR_POSTAGEM = 'CRIAR_POSTAGEM'
+export const CARREGAR_CATEGORIAS = 'CARREGAR_CATEGORIAS'
+export const CARREGAR_POSTAGENS = 'CARREGAR_POSTAGENS'
+export const CARREGAR_POSTAGEM = 'CARREGAR_POSTAGEM'
+export const EDITAR_POSTAGEM = 'EDITAR_POSTAGEM'
 export const EXCLUIR_POSTAGEM = 'EXCLUIR_POSTAGEM'
 
-export function listarCategorias(categorias) {
+export function carregarCategorias(categorias) {
   return {
-    type: LISTAR_CATEGORIAS,
+    type: CARREGAR_CATEGORIAS,
     categorias
   }
 }
 
-export function callListarCategorias() {
+export function callCarregarCategorias() {
   return (dispatch) => {
-    API.listCategories().then(
-      (response) => dispatch(listarCategorias(response))
+    API.getCategories().then(
+      (response) => dispatch(carregarCategorias(response))
     )
   }
 }
 
-export function listarPostagens(postagens) {
+export function carregarPostagens(postagens) {
   return {
-    type: LISTAR_POSTAGENS,
+    type: CARREGAR_POSTAGENS,
     postagens
   }
 }
 
-export function callListarPostagens() {
+export function callCarregarPostagens() {
   return (dispatch) => {
-    API.listPosts().then(
-      (response) => dispatch(listarPostagens(response))
+    API.getPosts().then(
+      (response) => dispatch(carregarPostagens(response))
     )
   }
 }
 
-export function criarPostagem(postagem) {
+export function carregarPostagem(postagem) {
   return {
-    type: CRIAR_POSTAGEM,
+    type: CARREGAR_POSTAGEM,
     postagem
   }
 }
 
-export function callCriarPostagem(data) {
+export function callCarregarPostagem(id) {
   return (dispatch) => {
-    API.createPost(data).then(
-      (response) => dispatch(criarPostagem(response))
+    API.getPost(id).then(
+      (response) => dispatch(carregarPostagem(response))
+    )
+  }
+}
+
+export function callCriarPostagem(postagem) {
+  return (dispatch) => {
+    API.createPost(postagem).then(
+      (response) => dispatch(carregarPostagem(response))
+    )
+  }
+}
+
+export function callEditarPostagem(postagem) {
+  return (dispatch) => {
+    API.editPost(postagem).then(
+      (response) => dispatch(carregarPostagem(response))
     )
   }
 }
