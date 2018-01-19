@@ -12,7 +12,7 @@ class CriarPostagem extends Component {
   handleCriarPostagem = (e) => {
     e.preventDefault()
 
-    let data = {
+    let postagem = {
       id: Date.now(),
       timestamp: Date.now(),
       author: e.target.autor.value,
@@ -21,7 +21,7 @@ class CriarPostagem extends Component {
       category: e.target.categoria.value
     }
 
-    this.props.callCriarPostagem(data)
+    this.props.callCriarPostagem(postagem)
 
     window.location = '/'
   }
@@ -80,7 +80,7 @@ class CriarPostagem extends Component {
   }
 }
 
-let mapStateToProps = ({ categorias }) => ({
+const mapStateToProps = ({ categorias }) => ({
   categorias
 })
 

@@ -51,3 +51,43 @@ export const deletePost = (data) => fetch(
     headers: headers
   }
 )
+
+export const getComments = (data) => fetch(
+  `${url}/posts/${data}/comments`,
+  {
+    headers: headers
+  }
+).then(res => res.json()).then(data => data)
+
+export const getComment = (data) => fetch(
+  `${url}/comments/${data}`,
+  {
+    headers: headers
+  }
+).then(res => res.json()).then(data => data)
+
+export const createComment = (data) => fetch(
+  `${url}/comments`,
+  {
+    method: 'post',
+    headers: headers,
+    body: JSON.stringify(data)
+  }
+).then(res => res.json()).then(data => data)
+
+export const editComment = (data) => fetch(
+  `${url}/comments/${data.id}`,
+  {
+    method: 'put',
+    headers: headers,
+    body: JSON.stringify(data)
+  }
+).then(res => res.json()).then(data => data)
+
+export const deleteComment = (data) => fetch(
+  `${url}/comments/${data}`,
+  {
+    method: 'delete',
+    headers: headers
+  }
+)

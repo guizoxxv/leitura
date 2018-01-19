@@ -17,7 +17,17 @@ class EditarPostagem extends Component {
     this.props.callCarregarPostagem(this.props.match.params.id)
 
     let postagem = this.props.postagem.postagem
-    console.log(postagem)
+
+    this.setState({
+      titulo: postagem.title,
+      autor: postagem.author,
+      categoria: postagem.category,
+      corpo: postagem.body
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let postagem = nextProps.postagem.postagem
 
     this.setState({
       titulo: postagem.title,
@@ -59,7 +69,7 @@ class EditarPostagem extends Component {
           <button><Link to="/">Voltar</Link></button>
         </div>
         <section className="main-content">
-          <h3 className="post-form-title">Criar Postagem</h3>
+          <h3 className="post-form-title">Editar Postagem</h3>
           <form className="post-form" onSubmit={this.handleEditarPostagem}>
             <div className="form-group">
               <label>Título:</label>
@@ -106,7 +116,7 @@ class EditarPostagem extends Component {
   }
 }
 
-let mapStateToProps = ({ categorias, postagem }) => ({
+const mapStateToProps = ({ categorias, postagem }) => ({
   categorias,
   postagem
 })
