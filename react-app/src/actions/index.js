@@ -2,12 +2,15 @@ import * as API from '../utils/api'
 
 export const CARREGAR_CATEGORIAS = 'CARREGAR_CATEGORIAS'
 export const CARREGAR_POSTAGENS = 'CARREGAR_POSTAGENS'
+export const CARREGAR_POSTAGENS_POR_CATEGORIA = 'CARREGAR_POSTAGENS_POR_CATEGORIA'
 export const CARREGAR_POSTAGEM = 'CARREGAR_POSTAGEM'
 export const EDITAR_POSTAGEM = 'EDITAR_POSTAGEM'
 export const EXCLUIR_POSTAGEM = 'EXCLUIR_POSTAGEM'
 export const CARREGAR_COMENTARIOS = 'CARREGAR_COMENTARIOS'
 export const CARREGAR_COMENTARIO = 'CARREGAR_COMENTARIO'
 export const EXCLUIR_COMENTARIO = 'EXCLUIR_COMENTARIO'
+export const SELECIONAR_CATEGORIA = 'SELECIONAR_CATEGORIA'
+export const SELECIONAR_ORDEM = 'SELECIONAR_ORDEM'
 
 export function carregarCategorias(categorias) {
   return {
@@ -24,9 +27,24 @@ export function callCarregarCategorias() {
   }
 }
 
+export function selecionarCategoria(categoria) {
+  return {
+    type: SELECIONAR_CATEGORIA,
+    categoria
+  }
+}
+
 export function carregarPostagens(postagens) {
   return {
     type: CARREGAR_POSTAGENS,
+    postagens
+  }
+}
+
+export function carregarPostagensPorCategoria(categoria, postagens) {
+  return {
+    type: CARREGAR_POSTAGENS_POR_CATEGORIA,
+    categoria,
     postagens
   }
 }
@@ -36,6 +54,21 @@ export function callCarregarPostagens() {
     API.getPosts().then(
       (response) => dispatch(carregarPostagens(response))
     )
+  }
+}
+
+export function callCarregarPostagensPorCategoria(categoria) {
+  return (dispatch) => {
+    API.getPostsByCategory(categoria).then(
+      (response) => dispatch(carregarPostagensPorCategoria(categoria, response))
+    )
+  }
+}
+
+export function selecionarOrdem(ordem) {
+  return {
+    type: SELECIONAR_ORDEM,
+    ordem
   }
 }
 
@@ -96,7 +129,7 @@ export function carregarComentarios(id, comentarios) {
 export function callCarregarComentarios(id) {
   return (dispatch) => {
     API.getComments(id).then(
-      (comentarios) => dispatch(carregarComentarios(id, comentarios))
+      (response) => dispatch(carregarComentarios(id, response))
     )
   }
 }
@@ -112,7 +145,7 @@ export function carregarComentario(id, comentario) {
 export function callCarregarComentario(id) {
   return (dispatch) => {
     API.getComment(id).then(
-      (comentario) => dispatch(carregarComentario(id, comentario))
+      (response) => dispatch(carregarComentario(id, response))
     )
   }
 }
@@ -120,7 +153,7 @@ export function callCarregarComentario(id) {
 export function callCriarComentario(id) {
   return (dispatch) => {
     API.createComment(id).then(
-      (comentario) => dispatch(carregarComentario(id, comentario))
+      (response) => dispatch(carregarComentario(id, response))
     )
   }
 }

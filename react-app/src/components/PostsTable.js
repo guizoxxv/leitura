@@ -1,12 +1,31 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { callCarregarPostagens, callExcluirPostagem } from '../actions'
+import { callCarregarPostagens, callCarregarPostagensPorCategoria, callExcluirPostagem, selecionarOrdem } from '../actions'
 import Moment from 'moment'
+import sortBy from 'sort-by'
 
 class PostsTable extends Component {
+  state = {
+    ordem: 'id'
+  }
+
   componentDidMount() {
-    this.props.callCarregarPostagens()
+    let categoria = this.props.match.params.categoria
+
+    if(categoria === undefined) {
+      this.props.callCarregarPostagens()
+    } else {
+      this.props.callCarregarPostagensPorCategoria(categoria)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let ordem = nextProps.ordem.ordem
+
+    this.setState({
+      ordem: ordem
+    })
   }
 
   handleExcluirPostagem = (id) => {
@@ -17,8 +36,16 @@ class PostsTable extends Component {
     }
   }
 
+  handleSelecionarOrdem = (e) => {
+    let ordem = e.target.value
+
+    this.props.selecionarOrdem(ordem)
+  }
+
   render() {
     let postagens = this.props.postagens.postagens
+
+    postagens.sort(sortBy(this.state.ordem))
 
     return (
       <section className="posts-table-wrapper">
@@ -26,10 +53,10 @@ class PostsTable extends Component {
           <h3>Todas as postagens</h3>
           <div className="ordenar-por">
             <label>Ordenar por:</label>
-            <select>
-              <option value="">Selecione</option>
-              <option value="data">Data</option>
-              <option value="votos">Votos</option>
+            <select onChange={this.handleSelecionarOrdem}>
+              <option value="id">ID</option>
+              <option value="timestamp">Data</option>
+              <option value="voteScore">Votos</option>
             </select>
           </div>
           <button><Link to="/postagem/criar">Nova Postagem</Link></button>
@@ -67,9 +94,10 @@ class PostsTable extends Component {
   }
 }
 
-const mapStateToProps = ({ postagens, postagem }) => ({
+const mapStateToProps = ({ postagens, postagem, ordem }) => ({
   postagens,
-  postagem
+  postagem,
+  ordem
 })
 
-export default connect(mapStateToProps, { callCarregarPostagens, callExcluirPostagem })(PostsTable)
+export default connect(mapStateToProps, { callCarregarPostagens, callCarregarPostagensPorCategoria, callExcluirPostagem, selecionarOrdem })(PostsTable)
