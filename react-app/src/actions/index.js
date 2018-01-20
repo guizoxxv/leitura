@@ -11,6 +11,8 @@ export const CARREGAR_COMENTARIO = 'CARREGAR_COMENTARIO'
 export const EXCLUIR_COMENTARIO = 'EXCLUIR_COMENTARIO'
 export const SELECIONAR_CATEGORIA = 'SELECIONAR_CATEGORIA'
 export const SELECIONAR_ORDEM = 'SELECIONAR_ORDEM'
+export const VOTAR_POSTAGEM = 'VOTAR_POSTAGEM'
+export const VOTAR_COMENTARIO = 'VOTAR_COMENTARIO'
 
 export function carregarCategorias(categorias) {
   return {
@@ -169,7 +171,6 @@ export function callEditarComentario(comentario) {
 export function excluirComentario(id) {
   return {
     type: EXCLUIR_COMENTARIO,
-    id
   }
 }
 
@@ -177,6 +178,26 @@ export function callExcluirComentario(id) {
   return (dispatch) => {
     API.deleteComment(id).then(
       () => dispatch(excluirComentario(id))
+    )
+  }
+}
+
+export function votar(id, voto, path) {
+  let type = (path === 'posts') ? VOTAR_POSTAGEM : VOTAR_COMENTARIO
+
+  return {
+    type: type,
+    id,
+    voto
+  }
+}
+
+export function callVotar(id, data, path) {
+  let voto = (data.option === 'upVote') ? 1 : -1
+
+  return (dispatch) => {
+    API.votePost(id, data, path).then(
+      () => dispatch(votar(id, voto, path))
     )
   }
 }

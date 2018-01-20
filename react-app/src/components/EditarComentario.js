@@ -23,6 +23,10 @@ class EditarComentario extends Component {
   componentWillReceiveProps(nextProps) {
     let comentario = nextProps.comentario.comentario
 
+    if(comentario.deleted === true) {
+      window.location = '/erro404'
+    }
+
     this.setState({
       autor: comentario.author,
       corpo: comentario.body
@@ -42,7 +46,7 @@ class EditarComentario extends Component {
 
     this.props.callEditarComentario(comentario)
 
-    window.location = '/postagem/' + this.props.comentario.comentario.parentId + '/ver'
+    window.location = '/postagens/' + this.props.comentario.comentario.parentId
   }
 
   handleInput = (e) => {

@@ -1,4 +1,4 @@
-const url = "http://localhost:5005"
+const url = "http://localhost:3001"
 
 const headers = {
   'Authorization': 'whatever-you-want',
@@ -96,5 +96,14 @@ export const deleteComment = (data) => fetch(
   {
     method: 'delete',
     headers: headers
+  }
+)
+
+export const votePost = (data, option, path) => fetch(
+  `${url}/${path}/${data}`,
+  {
+    method: 'post',
+    headers: headers,
+    body: JSON.stringify(option)
   }
 )

@@ -129,3 +129,12 @@ textarea {
 .comentario:last-of-type hr {
   display: none;
 }
+.erro404-wrapper {
+  text-align: center;
+}
+.erro404-wrapper a {
+  color: blue;
+}
+.erro404-wrapper a:hover {
+  color: darkblue;
+}

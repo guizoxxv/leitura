@@ -7,7 +7,7 @@ services:
       - ./react-app:/home/react/app
     working_dir: /home/react/app
     ports:
-      - 3005:3000
+      - 3000:3000
     tty: true
     # Ao criar o container pela primeira vez
     # Executar apt update; npm install no container
@@ -20,7 +20,7 @@ services:
       - ./react-server:/home/node/app
     working_dir: /home/node/app
     ports:
-      - 5005:3001
+      - 3001:3001
     tty: true
     # Ao criar o container pela primeira vez
     # Executar apt update; npm install no container

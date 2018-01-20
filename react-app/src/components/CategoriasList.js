@@ -16,7 +16,7 @@ class CategoriasList extends Component {
 
     this.props.selecionarCategoria(categoria)
 
-    window.location = '/categorias/' + categoria
+    window.location = '/' + categoria
   }
 
   render() {

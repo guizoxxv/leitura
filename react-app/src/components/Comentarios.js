@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { callCarregarComentarios, callCriarComentario, callExcluirComentario } from '../actions'
+import { callCarregarComentarios, callCriarComentario, callExcluirComentario, callVotar } from '../actions'
 import { connect } from 'react-redux'
 import Moment from 'moment'
 
@@ -22,17 +22,25 @@ class Comentarios extends Component {
 
     this.props.callCriarComentario(comentario)
 
-    window.location = '/postagem/' + this.props.id + '/ver'
+    window.location = '/postagens/' + this.props.id
   }
 
   handleExcluirComentario = (id) => {
-    var confirm = window.confirm('Deseja mesmo excluir este registro?')
+    let confirm = window.confirm('Deseja mesmo excluir este registro?')
 
     if(confirm === true) {
       this.props.callExcluirComentario(id)
     }
 
-    window.location = '/postagem/' + this.props.id + '/ver'
+    window.location = '/postagens/' + this.props.id
+  }
+
+  handleVotar = (id, option) => {
+    let data = {
+      option: option
+    }
+
+    this.props.callVotar(id, data, 'comments')
   }
 
   render() {
@@ -49,12 +57,13 @@ class Comentarios extends Component {
               </div>
               <div className="comentario-footer">
                 <div>
-                  <button style={{'marginRight':'5px'}}><Link to={`/comentario/${comentario.id}/editar`}>Editar</Link></button>
+                  <button style={{'marginRight':'5px'}}><Link to={`/comentarios/${comentario.id}/editar`}>Editar</Link></button>
                   <button onClick={() => this.handleExcluirComentario(comentario.id)}>Excluir</button>
                 </div>
                 <div className="votes-wrapper">
                   <span>{comentario.voteScore} votos</span>
-                  <button>+1</button>
+                  <button style={{'marginRight':'5px'}} onClick={() => this.handleVotar(comentario.id, 'upVote')}>+1</button>
+                  <button onClick={() => this.handleVotar(comentario.id, 'downVote')}>-1</button>
                 </div>
               </div>
               <hr/>
@@ -80,4 +89,4 @@ const mapStateToProps = ({ comentarios, comentario }) => ({
   comentario
 })
 
-export default connect(mapStateToProps, { callCarregarComentarios, callCriarComentario, callExcluirComentario })(Comentarios)
+export default connect(mapStateToProps, { callCarregarComentarios, callCriarComentario, callExcluirComentario, callVotar })(Comentarios)

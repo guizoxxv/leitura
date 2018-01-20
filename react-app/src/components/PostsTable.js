@@ -29,7 +29,7 @@ class PostsTable extends Component {
   }
 
   handleExcluirPostagem = (id) => {
-    var confirm = window.confirm('Deseja mesmo excluir este registro?')
+    let confirm = window.confirm('Deseja mesmo excluir este registro?')
 
     if(confirm === true) {
       this.props.callExcluirPostagem(id)
@@ -59,7 +59,7 @@ class PostsTable extends Component {
               <option value="voteScore">Votos</option>
             </select>
           </div>
-          <button><Link to="/postagem/criar">Nova Postagem</Link></button>
+          <button><Link to="/postagens/criar">Nova Postagem</Link></button>
         </div>
         <table className="posts-table">
           <thead>
@@ -81,8 +81,8 @@ class PostsTable extends Component {
                 <td>{Moment.unix(postagem.timestamp/1000).format('DD/MM/YYYY')}</td>
                 <td>{postagem.voteScore}</td>
                 <td>
-                  <button style={{ 'marginRight':'5px' }}><Link to={`/postagem/${postagem.id}/ver`}>Ver</Link></button>
-                  <button style={{ 'marginRight':'5px' }}><Link to={`/postagem/${postagem.id}/editar`}>Editar</Link></button>
+                  <button style={{ 'marginRight':'5px' }}><Link to={`/postagens/${postagem.id}`}>Ver</Link></button>
+                  <button style={{ 'marginRight':'5px' }}><Link to={`/postagens/${postagem.id}/editar`}>Editar</Link></button>
                   <button onClick={() => this.handleExcluirPostagem(postagem.id)}>Excluir</button>
                 </td>
               </tr>

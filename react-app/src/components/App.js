@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../index.css'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import CategoriasList from './CategoriasList'
 import PostsTable from './PostsTable'
@@ -8,6 +8,7 @@ import CriarPostagem from './CriarPostagem'
 import EditarPostagem from './EditarPostagem'
 import EditarComentario from './EditarComentario'
 import Post from './Post'
+import Erro404 from './Erro404'
 
 class App extends Component {
   render() {
@@ -22,16 +23,19 @@ class App extends Component {
             <PostsTable {...props}/>
           </main>
         )}/>
-        <Route exact path='/categorias/:categoria' render={(props) => (
-          <main>
-            <CategoriasList {...props}/>
-            <PostsTable {...props}/>
-          </main>
-        )}/>
-        <Route path='/postagem/criar' component={CriarPostagem}/>
-        <Route path='/postagem/:id/ver' component={Post}/>
-        <Route path='/postagem/:id/editar' component={EditarPostagem}/>
-        <Route path='/comentario/:id/editar' component={EditarComentario}/>
+        <Switch>
+          <Route exact path='postagens/:categoria' render={(props) => (
+            <main>
+              <CategoriasList {...props}/>
+              <PostsTable {...props}/>
+            </main>
+          )}/>
+          <Route exact path='/postagens/criar' component={CriarPostagem}/>
+          <Route exact path='/postagens/:id' component={Post}/>
+          <Route exact path='/postagens/:id/editar' component={EditarPostagem}/>
+          <Route exact path='/comentarios/:id/editar' component={EditarComentario}/>
+          <Route exact path='/erro404' component={Erro404}/>
+        </Switch>
       </div>
     );
   }
