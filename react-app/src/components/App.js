@@ -24,17 +24,17 @@ class App extends Component {
           </main>
         )}/>
         <Switch>
-          <Route exact path='postagens/:categoria' render={(props) => (
+          <Route exact path='/erro404' component={Erro404}/>
+          <Route exact path='/:categoria' render={(props) => (
             <main>
               <CategoriasList {...props}/>
               <PostsTable {...props}/>
             </main>
           )}/>
           <Route exact path='/postagens/criar' component={CriarPostagem}/>
-          <Route exact path='/postagens/:id' component={Post}/>
+          <Route exact path='/:categoria/:id' component={Post}/>
           <Route exact path='/postagens/:id/editar' component={EditarPostagem}/>
           <Route exact path='/comentarios/:id/editar' component={EditarComentario}/>
-          <Route exact path='/erro404' component={Erro404}/>
         </Switch>
       </div>
     );

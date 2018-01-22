@@ -45,7 +45,7 @@ class Comentarios extends Component {
 
   render() {
     let comentarios = this.props.comentarios.comentarios
-
+    
     return (
       <section className="comentarios-wrapper">
         <ul>

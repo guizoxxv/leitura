@@ -40,6 +40,17 @@ function postagens(state = initialStatePostagens, action) {
         ...state,
         postagens: state.postagens.filter(post => post.id !== action.id)
       }
+    case VOTAR_POSTAGEM:
+      return {
+        ...state,
+        postagens: state.postagens.map(postagem => {
+          if(postagem.id === action.id) {
+            postagem.voteScore = postagem.voteScore + action.voto
+          }
+
+          return postagem;
+        })
+      }
     default:
       return state
   }
@@ -78,14 +89,6 @@ function postagem(state = initialStatePostagem, action) {
         ...state,
         postagens: state.postagens.filter(post => post.id !== action.id)
       }
-    case VOTAR_POSTAGEM:
-      return {
-        ...state,
-        postagem: {
-          ...state.postagem,
-          voteScore: state.postagem.voteScore + action.voto
-        }
-      }
     default:
       return state
   }
@@ -101,6 +104,17 @@ function comentarios(state = initialStateComentarios, action) {
       return {
         ...state,
         comentarios: action.comentarios
+      }
+    case VOTAR_COMENTARIO:
+      return {
+        ...state,
+        comentarios: state.comentarios.map(comentario => {
+          if(comentario.id === action.id) {
+            comentario.voteScore = comentario.voteScore + action.voto
+          }
+
+          return comentario;
+        })
       }
     default:
       return state
@@ -124,15 +138,6 @@ function comentario(state = initialStateComentario, action) {
       return {
         ...state,
         comentarios: state.comentarios.filter(comentario => comentario.id !== action.id)
-      }
-    case VOTAR_COMENTARIO:
-      console.log(state.comentarios)
-      return {
-        ...state,
-        comentarios: {
-          ...state.comentario,
-          voteScore: state.comentario.voteScore + action.voto
-        }
       }
     default:
       return state

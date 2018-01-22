@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { callCarregarPostagem, callExcluirPostagem, callVotar } from '../actions'
+import { callCarregarPostagem, callExcluirPostagem } from '../actions'
 import { connect } from 'react-redux'
 import { capitalize } from '../utils/helpers'
 import Moment from 'moment'
@@ -29,14 +29,6 @@ class Post extends Component {
     }
   }
 
-  handleVotar = (id, option) => {
-    let data = {
-      option: option
-    }
-
-    this.props.callVotar(id, data, 'posts')
-  }
-
   render() {
     let postagem = this.props.postagem.postagem
 
@@ -58,8 +50,6 @@ class Post extends Component {
             </div>
             <div className="votes-wrapper">
               <span>{postagem.voteScore} votos</span>
-              <button style={{'marginRight':'5px'}} onClick={() => this.handleVotar(postagem.id, 'upVote')}>+1</button>
-              <button onClick={() => this.handleVotar(postagem.id, 'downVote')}>-1</button>
             </div>
           </div>
           <hr/>
@@ -67,8 +57,8 @@ class Post extends Component {
             {postagem.body}
           </div>
           <div>
-            <button style={{'marginRight':'5px'}}><Link to={`/postagens/${postagem.id}/editar`}>Editar</Link></button>
-            <button onClick={() => this.handleExcluirPostagem}>Excluir</button>
+            <button style={{ 'marginRight':'5px' }}><Link to={`/postagens/${postagem.id}/editar`}>Editar</Link></button>
+            <button onClick={() => this.handleExcluirPostagem(postagem.id)}>Excluir</button>
           </div>
           <hr/>
         </section>
@@ -82,4 +72,4 @@ const mapStateToProps = ({ postagem }) => ({
   postagem
 })
 
-export default connect(mapStateToProps, { callCarregarPostagem, callExcluirPostagem, callVotar })(Post)
+export default connect(mapStateToProps, { callCarregarPostagem, callExcluirPostagem })(Post)
