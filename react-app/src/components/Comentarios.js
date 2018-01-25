@@ -3,8 +3,13 @@ import { Link } from 'react-router-dom'
 import { callCarregarComentarios, callCriarComentario, callExcluirComentario, callVotar } from '../actions'
 import { connect } from 'react-redux'
 import Moment from 'moment'
+import sortBy from 'sort-by'
 
 class Comentarios extends Component {
+  state = {
+    ordem: 'voteScore'
+  }
+
   componentDidMount() {
     this.props.callCarregarComentarios(this.props.id)
   }
@@ -45,7 +50,9 @@ class Comentarios extends Component {
 
   render() {
     let comentarios = this.props.comentarios.comentarios
-    
+
+    comentarios.sort(sortBy(`-${this.state.ordem}`))
+
     return (
       <section className="comentarios-wrapper">
         <ul>
@@ -84,9 +91,10 @@ class Comentarios extends Component {
   }
 }
 
-const mapStateToProps = ({ comentarios, comentario }) => ({
+const mapStateToProps = ({ comentarios, comentario, ordem }) => ({
   comentarios,
-  comentario
+  comentario,
+  ordem
 })
 
 export default connect(mapStateToProps, { callCarregarComentarios, callCriarComentario, callExcluirComentario, callVotar })(Comentarios)

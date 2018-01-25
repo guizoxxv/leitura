@@ -1,1 +1,2 @@
 * CategoriasList dentro de PostsTable
+* Passar comentarios como propriedade de Post para Comentarios

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { callCarregarPostagem, callExcluirPostagem } from '../actions'
+import { callCarregarPostagem, callCarregarComentarios, callExcluirPostagem, callVotar } from '../actions'
 import { connect } from 'react-redux'
 import { capitalize } from '../utils/helpers'
 import Moment from 'moment'
@@ -9,6 +9,7 @@ import Comentarios from './Comentarios'
 class Post extends Component {
   componentDidMount() {
     this.props.callCarregarPostagem(this.props.match.params.id)
+    this.props.callCarregarComentarios(this.props.match.params.id)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,8 +30,17 @@ class Post extends Component {
     }
   }
 
+  handleVotar = (id, option) => {
+    let data = {
+      option: option
+    }
+
+    this.props.callVotar(id, data, 'posts', true)
+  }
+
   render() {
     let postagem = this.props.postagem.postagem
+    let comentarios = this.props.comentarios.comentarios
 
     return (
       <main>
@@ -49,7 +59,10 @@ class Post extends Component {
               </Link>
             </div>
             <div className="votes-wrapper">
+              <span>{comentarios.length} comentarios | </span>
               <span>{postagem.voteScore} votos</span>
+              <button style={{'marginRight':'5px'}} onClick={() => this.handleVotar(postagem.id, 'upVote')}>+1</button>
+              <button onClick={() => this.handleVotar(postagem.id, 'downVote')}>-1</button>
             </div>
           </div>
           <hr/>
@@ -68,8 +81,9 @@ class Post extends Component {
   }
 }
 
-const mapStateToProps = ({ postagem }) => ({
-  postagem
+const mapStateToProps = ({ postagem, comentarios }) => ({
+  postagem,
+  comentarios
 })
 
-export default connect(mapStateToProps, { callCarregarPostagem, callExcluirPostagem })(Post)
+export default connect(mapStateToProps, { callCarregarPostagem, callCarregarComentarios, callExcluirPostagem, callVotar })(Post)

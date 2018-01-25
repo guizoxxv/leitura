@@ -12,6 +12,7 @@ export const EXCLUIR_COMENTARIO = 'EXCLUIR_COMENTARIO'
 export const SELECIONAR_CATEGORIA = 'SELECIONAR_CATEGORIA'
 export const SELECIONAR_ORDEM = 'SELECIONAR_ORDEM'
 export const VOTAR_POSTAGEM = 'VOTAR_POSTAGEM'
+export const VOTAR_POSTAGEM_FROMPOST = 'VOTAR_POSTAGEM_FROMPOST'
 export const VOTAR_COMENTARIO = 'VOTAR_COMENTARIO'
 
 export function carregarCategorias(categorias) {
@@ -182,8 +183,14 @@ export function callExcluirComentario(id) {
   }
 }
 
-export function votar(id, voto, path) {
-  let type = (path === 'posts') ? VOTAR_POSTAGEM : VOTAR_COMENTARIO
+export function votar(id, voto, path, fromPost) {
+  let type
+
+  if(fromPost === true) {
+    type = VOTAR_POSTAGEM_FROMPOST
+  } else {
+    type = (path === 'posts') ? VOTAR_POSTAGEM : VOTAR_COMENTARIO
+  }
 
   return {
     type: type,
@@ -192,12 +199,12 @@ export function votar(id, voto, path) {
   }
 }
 
-export function callVotar(id, data, path) {
+export function callVotar(id, data, path, fromPost) {
   let voto = (data.option === 'upVote') ? 1 : -1
 
   return (dispatch) => {
     API.votePost(id, data, path).then(
-      () => dispatch(votar(id, voto, path))
+      () => dispatch(votar(id, voto, path, fromPost))
     )
   }
 }

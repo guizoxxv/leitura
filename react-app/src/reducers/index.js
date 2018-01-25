@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { CARREGAR_CATEGORIAS, SELECIONAR_CATEGORIA, CARREGAR_POSTAGENS, CARREGAR_POSTAGENS_POR_CATEGORIA, CARREGAR_POSTAGEM, EXCLUIR_POSTAGEM, CARREGAR_COMENTARIOS, CARREGAR_COMENTARIO, EXCLUIR_COMENTARIO, SELECIONAR_ORDEM, VOTAR_POSTAGEM, VOTAR_COMENTARIO } from '../actions'
+import { CARREGAR_CATEGORIAS, SELECIONAR_CATEGORIA, CARREGAR_POSTAGENS, CARREGAR_POSTAGENS_POR_CATEGORIA, CARREGAR_POSTAGEM, EXCLUIR_POSTAGEM, CARREGAR_COMENTARIOS, CARREGAR_COMENTARIO, EXCLUIR_COMENTARIO, SELECIONAR_ORDEM, VOTAR_POSTAGEM, VOTAR_POSTAGEM_FROMPOST, VOTAR_COMENTARIO } from '../actions'
 
 function categorias(state = {}, action) {
   switch(action.type) {
@@ -88,6 +88,14 @@ function postagem(state = initialStatePostagem, action) {
       return {
         ...state,
         postagens: state.postagens.filter(post => post.id !== action.id)
+      }
+    case VOTAR_POSTAGEM_FROMPOST:
+      return {
+        ...state,
+        postagem: {
+          ...state.postagem,
+          voteScore: state.postagem.voteScore + action.voto
+        }
       }
     default:
       return state
