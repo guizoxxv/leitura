@@ -1,30 +1,29 @@
 version: "3"
 services:
-  leitura-app:
-    container_name: leitura-app
-    image: node:9.0.0
+# development: dev; production: app + server
+  dev:
+    image: node:8
     volumes:
-      - ./react-app:/home/react/app
-    working_dir: /home/react/app
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
     ports:
       - 3000:3000
-    tty: true
-    # Ao criar o container pela primeira vez
-    # Executar apt update; npm install no container
-    # command: npm init
-    command: npm start
-  leitura-server:
-    container_name: leitura-server
-    image: node:9.0.0
-    volumes:
-      - ./react-server:/home/node/app
-    working_dir: /home/node/app
-    ports:
       - 3001:3001
     tty: true
-    # Ao criar o container pela primeira vez
-    # Executar apt update; npm install no container
-    # command: npm init
-    command: node server.js
-
-# Executar docker-compose up -d --build para alterar o comando de entrada após npm install no(s) container(s)
+  # app:
+  #   image: guizo/docker-nginx
+  #   volumes:
+  #     - ./react-app/build:/usr/share/nginx/html
+  #   working_dir: /usr/share/nginx/html
+  #   ports:
+  #     - 3000:80
+  #   tty: true
+  # server:
+  #   image: node:8
+  #   volumes:
+  #     - ./react-server:/usr/src/app
+  #   working_dir: /usr/src/app
+  #   ports:
+  #     - 3001:3001
+  #   tty: true
+  #   command: node server.js

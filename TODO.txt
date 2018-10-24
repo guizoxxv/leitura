@@ -1,2 +1,3 @@
 * CategoriasList dentro de PostsTable
 * Passar comentarios como propriedade de Post para Comentarios
+* Run npm start on react-app and node server.js on react-serve when container dev is up
