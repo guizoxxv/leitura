@@ -1,7 +1,7 @@
 FROM keymetrics/pm2:8-stretch
 
 # Bundle APP files
-COPY server server/
+COPY . .
 
 # Install app dependencies
 ENV NPM_CONFIG_LOGLEVEL warn
