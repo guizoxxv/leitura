@@ -1,29 +1,30 @@
 version: "3"
 services:
 # development: dev; production: app + server
-  dev:
-    image: node:8
-    volumes:
-      - ./:/usr/src/app
-    working_dir: /usr/src/app
-    ports:
-      - 3000:3000
-      - 3001:3001
-    tty: true
-  # app:
-  #   image: guizo/docker-nginx
-  #   volumes:
-  #     - ./react-app/build:/usr/share/nginx/html
-  #   working_dir: /usr/share/nginx/html
-  #   ports:
-  #     - 3000:80
-  #   tty: true
-  # server:
+  # dev:
   #   image: node:8
   #   volumes:
-  #     - ./react-server:/usr/src/app
+  #     - ./:/usr/src/app
   #   working_dir: /usr/src/app
   #   ports:
+  #     - 3000:3000
   #     - 3001:3001
   #   tty: true
-  #   command: node server.js
+  app:
+    image: guizo/docker-nginx
+    volumes:
+      - ./app/build:/usr/share/nginx/html
+    working_dir: /usr/share/nginx/html
+    ports:
+      - 3000:80
+    tty: true
+  server:
+    build:
+      context: .
+      dockerfile: server.dockerfile
+    volumes:
+      - ./server:/usr/src/app
+    working_dir: /usr/src/app
+    ports:
+      - 3001:3001
+    tty: true
